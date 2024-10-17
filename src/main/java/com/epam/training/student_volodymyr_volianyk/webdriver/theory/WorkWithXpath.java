@@ -17,5 +17,6 @@ public class WorkWithXpath {
         searchBtn.click();
         Thread.sleep(2000);
         driver.quit();
+
     }
 }
