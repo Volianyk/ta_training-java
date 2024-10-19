@@ -12,7 +12,7 @@ public class WorkWithXpath {
         driver.get("https://www.google.com/");
         WebElement searchInput = driver.findElement(By.xpath("//*[@id=\"APjFqb\"]"));
         searchInput.sendKeys("selenium java");
-        By searchBtnSelector = By.xpath("/html/body/div[1]/div[3]/form/div[1]/div[1]/div[4]/center/input[1]");
+        By searchBtnSelector = By.xpath("//input[@name='btnK' and @type='submit']");
         WebElement searchBtn = driver.findElement(searchBtnSelector);
         searchBtn.click();
         Thread.sleep(2000);
