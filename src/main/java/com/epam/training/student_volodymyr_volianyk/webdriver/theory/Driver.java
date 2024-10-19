@@ -8,19 +8,19 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class Driver {
     public static void main(String[] args) throws InterruptedException {
 
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.selenium.dev");
+        WebDriver driverChrome = new ChromeDriver();
+        driverChrome.get("https://www.selenium.dev");
         Thread.sleep(2000);
-        driver.quit();
+        driverChrome.quit();
 
-        driver = new EdgeDriver();
-        driver.get("https://www.selenium.dev");
+        WebDriver driverEdge = new EdgeDriver();
+        driverEdge.get("https://www.selenium.dev");
         Thread.sleep(2000);
-        driver.quit();
+        driverEdge.quit();
 
-        driver = new FirefoxDriver();
-        driver.get("https://www.selenium.dev");
+        WebDriver driverFirefox = new FirefoxDriver();
+        driverFirefox.get("https://www.selenium.dev");
         Thread.sleep(2000);
-        driver.quit();
+        driverFirefox.quit();
     }
 }

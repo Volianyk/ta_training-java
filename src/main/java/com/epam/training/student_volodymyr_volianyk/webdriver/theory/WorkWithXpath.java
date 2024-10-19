@@ -3,20 +3,24 @@ package com.epam.training.student_volodymyr_volianyk.webdriver.theory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class WorkWithXpath {
     public static void main(String[] args) throws InterruptedException {
 
-        WebDriver driver = new ChromeDriver();
+        //searchExpression(WebDriverType.CHROME.getDriver()); // use line 19 to lunch Chrome
+        searchExpression(WebDriverType.EDGE.getDriver());
+        searchExpression(WebDriverType.FIREFOX.getDriver());
+    }
+
+    public static void searchExpression(WebDriver driver) throws InterruptedException {
         driver.get("https://www.google.com/");
         WebElement searchInput = driver.findElement(By.xpath("//*[@id=\"APjFqb\"]"));
         searchInput.sendKeys("selenium java");
-        By searchBtnSelector = By.xpath("//input[@name='btnK' and @type='submit']");
+        // By searchBtnSelector = By.xpath("//input[@name='btnK' and @type='submit']"); //works with Chrome
+        By searchBtnSelector = By.xpath("//div[@class='FPdoLc lJ9FBc']//input[@value='Пошук Google']"); //works with Firefox and Adge
         WebElement searchBtn = driver.findElement(searchBtnSelector);
         searchBtn.click();
         Thread.sleep(2000);
         driver.quit();
-
     }
 }
