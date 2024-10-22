@@ -1,4 +1,4 @@
-package com.epam.training.student_volodymyr_volianyk.webdriver.theory;
+package com.epam.training.theory;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
