@@ -1,29 +1,25 @@
-package com.epam.training.theory.pageobject_model.page.without_abstract_page;
+package com.epam.training.theory.pageobject_model.page.with_abstract_page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class SearchResultsPagePFMixed {
+public class SearchResultsPagePFMixedWIthAbstractPO extends AbstractPage {
     private final String splitRegex = "\\s";
-    private WebDriver driver;
     private String searchTerm;
 
-    // Use dynamic locator with "contains", split and iteration over the list
     private String defaultLocator = "//div[contains(@class,'gsc-result')%s]";
     private String containsPart = " and contains(., '%s')";
 
     @FindBy(xpath = "//div[contains(@class,'gsc-result')]")
     private List<WebElement> generalSearchResults;
 
-    public SearchResultsPagePFMixed(WebDriver driver, String searchTerm) {
+    protected SearchResultsPagePFMixedWIthAbstractPO(WebDriver driver, String searchTerm) {
+        super(driver);
         this.searchTerm = searchTerm;
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
     }
 
     public int countGeneralNumberOfSearchResults() {
@@ -39,7 +35,6 @@ public class SearchResultsPagePFMixed {
         return resultsNumberWithSearchTerm.size();
     }
 
-
     private String buildLocatorForSearch() {
         String partWithSearchTerm = "";
         String[] terms = searchTerm.split(splitRegex);
@@ -53,5 +48,10 @@ public class SearchResultsPagePFMixed {
                 + locatorForSearch);
 
         return locatorForSearch;
+    }
+
+    @Override
+    protected AbstractPage openPage() {
+        throw new RuntimeException("don use it");
     }
 }

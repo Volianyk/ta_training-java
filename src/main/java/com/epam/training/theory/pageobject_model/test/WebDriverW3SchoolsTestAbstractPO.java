@@ -1,7 +1,6 @@
 package com.epam.training.theory.pageobject_model.test;
 
-
-import com.epam.training.theory.pageobject_model.page.without_abstract_page.W3SchoolsHomePagePF;
+import com.epam.training.theory.pageobject_model.page.with_abstract_page.W3SchoolsHomePagePFWithAbstractPO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class WebDriverW3SchoolsTest {
+public class WebDriverW3SchoolsTestAbstractPO {
     private WebDriver driver;
 
     @BeforeEach
@@ -26,7 +25,7 @@ public class WebDriverW3SchoolsTest {
 
     @Test
     public void commonSearchTermResultsAreNotEmpty() throws InterruptedException {
-        int expectedSearchResultNumber = new W3SchoolsHomePagePF(driver)
+        int expectedSearchResultNumber = new W3SchoolsHomePagePFWithAbstractPO(driver)
                 .openPage()
                 .searchForTerms("selenium java")
                 .countResultsNumberWithSearchTerm();
