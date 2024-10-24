@@ -1,9 +1,11 @@
 package com.epam.training.theory.pageobject_model.page.without_abstract_page;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -25,15 +27,18 @@ public class W3SchoolsHomePagePF {
 
     public W3SchoolsHomePagePF openPage() {
         driver.get(HOMEPAGE_URL);
-          new WebDriverWait(driver, Duration.ofSeconds(2));
-              //  .until(CustomConditions.jQueryAJAXsCompleted());
+        new WebDriverWait(driver, Duration.ofSeconds(2))
+                .until(ExpectedConditions.presenceOfElementLocated
+                        (By.xpath("//*[@id=\"tnb-google-search-submit-btn\"]")));
         return this;
+
     }
 
     public SearchResultsPagePFMixed searchForTerms (String term) throws InterruptedException {
         searchInput.sendKeys(term);
         searchButton.click();
-        Thread.sleep(3000);
+        new WebDriverWait(driver, Duration.ofSeconds(2))
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"resInfo-0\"]")));
         return new SearchResultsPagePFMixed(driver, term);
     }
 }
