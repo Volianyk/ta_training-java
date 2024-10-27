@@ -19,7 +19,8 @@ public class CloudGoogleCalculatorPageTest {
     @Test
     public void enteredWalueTest() throws InterruptedException {
         CloudGoogleCalculatorPage calculatorPage = new CloudGoogleCalculatorPage(driver);
-        calculatorPage.openPage();
+        calculatorPage.openPage()
+                .clickAddToEstimate();
     }
 
     @AfterEach
