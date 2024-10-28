@@ -21,6 +21,7 @@ public class CloudGoogleCalculatorPageTest {
         CloudGoogleCalculatorPage calculatorPage = new CloudGoogleCalculatorPage(driver);
         calculatorPage.openPage()
                 .clickAddToEstimate();
+        Thread.sleep(3000);
     }
 
     @AfterEach

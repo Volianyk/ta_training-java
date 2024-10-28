@@ -8,7 +8,6 @@ import org.openqa.selenium.support.FindBy;
 
 @Slf4j
 public class CloudGoogleCalculatorPage extends AbstractPage {
-    // private static Logger log = LoggerFactory.getLogger(CloudGoogleCalculatorPage.class);
 
     private static final String HOMEPAGE_URL = "https://cloud.google.com/products/calculator/";
 
@@ -30,7 +29,7 @@ public class CloudGoogleCalculatorPage extends AbstractPage {
 
     public ComputeEnginePage clickAddToEstimate() {
         addToEstimateButton.click();
-        //waitForVisibility(computeEngineSelect).click();
+
         log.info("click Add to estimate button");
         return new ComputeEnginePage(driver);
     }
