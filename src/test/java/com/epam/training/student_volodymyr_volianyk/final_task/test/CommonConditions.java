@@ -4,6 +4,7 @@ import com.epam.training.student_volodymyr_volianyk.final_task.driver.DriverSing
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
 public class CommonConditions {
@@ -12,7 +13,8 @@ public class CommonConditions {
     @BeforeEach
     public void browserSetup() {
        // driver = DriverSingleton.getDriver();
-        driver=new EdgeDriver();
+       // driver=new EdgeDriver();
+        driver=new ChromeDriver();
     }
 
     @AfterEach

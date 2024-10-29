@@ -6,24 +6,23 @@ import org.junit.jupiter.api.Test;
 
 public class SaucedemoUCOneTest extends CommonConditions {
     @Test
-    public void saucedemoUCOneTest() {
-        // Enter any dummy credentials
+    public void saucedemoUCOneTest() throws InterruptedException {
         SaucedemoLoginPage loginPage = new SaucedemoLoginPage(driver);
-        loginPage.enterUsername("dummyUser");
-        loginPage.enterPassword("dummyPassword");
+        loginPage.openPage();
+        loginPage.enterUsername("standard_user");
+        loginPage.enterPassword("secret_sauce");
+        Thread.sleep(3000);
 
-        // Clear the credentials
         loginPage.clearUsername();
         loginPage.clearPassword();
+        Thread.sleep(3000);
 
-        // Click the Login button and store the error message
         loginPage.clickLoginButton();
-
-        // Verify the error message from the field
+        Thread.sleep(2000);
         String actualErrorMessage = loginPage.getErrorMessage();
         String expectedErrorMessage = "Username is required";
 
-        // Assert the error message using AssertJ
+
         Assertions.assertThat(actualErrorMessage).isEqualTo(expectedErrorMessage);
     }
 
