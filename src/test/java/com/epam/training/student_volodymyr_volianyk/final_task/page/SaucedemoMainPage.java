@@ -16,16 +16,14 @@ public class SaucedemoMainPage extends AbstractPage {
         PageFactory.initElements(driver, this);
     }
 
-
     @Override
     protected AbstractPage openPage() {
         return null;
     }
 
-
     public String getPageTitle() {
         String title = pageTitle.getText();
-        log.info("Page title obtained: {}", title);
+        log.info("Page title: {}", title);
         return title;
     }
 }
