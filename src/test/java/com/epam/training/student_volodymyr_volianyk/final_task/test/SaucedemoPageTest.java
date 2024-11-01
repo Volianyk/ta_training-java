@@ -5,12 +5,13 @@ import com.epam.training.student_volodymyr_volianyk.final_task.page.SaucedemoLog
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+
 public class SaucedemoPageTest extends CommonConditions {
     @Test
     public void emptyInputTest() {
         SaucedemoLoginPage loginPage = new SaucedemoLoginPage(driver);
         User testUser = new User
-                ("standard_use", "secret_sauc", "Epic sadface: Username is required");
+                ("standard_use", "secret_sauc", "Username is required");
         loginPage.openPage();
         loginPage.enterCredentials(loginPage.getInputUserName(), testUser.getUsername());
         loginPage.enterCredentials(loginPage.getInputUserPassword(), testUser.getPassword());
@@ -25,13 +26,15 @@ public class SaucedemoPageTest extends CommonConditions {
     }
 
     @Test
-    public void emptyPasswordTest() {
-        User testUser = new User("standard_use", "secret_sauc", "Epic sadface: Password is required1");
+    public void emptyPasswordTest() throws InterruptedException {
+        User testUser = new User("standard_use", "secret_sauc", "Password is required");
         SaucedemoLoginPage loginPage = new SaucedemoLoginPage(driver);
         loginPage.openPage();
         loginPage.enterCredentials(loginPage.getInputUserName(), testUser.getUsername());
         loginPage.enterCredentials(loginPage.getInputUserPassword(), testUser.getPassword());
         loginPage.clearInputWithAction(loginPage.getInputUserPassword(), testUser.getPassword());
+
+        //Thread.sleep(2000);
         loginPage.clickButton(loginPage.getButtonLogin());
 
         String actualErrorMessage = loginPage.getErrorMessage();

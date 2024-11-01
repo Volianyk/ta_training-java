@@ -2,8 +2,9 @@ package com.epam.training.student_volodymyr_volianyk.final_task.page;
 
 import com.epam.training.student_volodymyr_volianyk.final_task.model.User;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 import lombok.var;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,8 +16,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-@Slf4j
+
 public class SaucedemoLoginPage extends AbstractPage {
+
+    private final Logger log = LogManager.getRootLogger();
 
     private final String PAGE_URL = "https://www.saucedemo.com/";
     private WebDriverWait wait;
@@ -77,8 +80,9 @@ public class SaucedemoLoginPage extends AbstractPage {
     public String getErrorMessage() {
          wait.until(ExpectedConditions.visibilityOf(errorMessage));
         String error = errorMessage.getText();
-        log.info("Error message displayed: {}.", error);
-        return error;
+        String processedError = error.replace("Epic sadface: ", ""); //todo need to change, looks like hardcode
+        log.info("Error message displayed: {}.", processedError);
+        return processedError;
     }
 
     public SaucedemoMainPage login(User user) {
