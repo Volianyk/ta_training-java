@@ -1,4 +1,14 @@
 # ta_training-java
+
+Command to run test:
+`mvn -Dbrowser=firefox -Dtest=SaucedemoPageTest -Denv=qa clean test`
+Edge set as default browser.
+
+Parallel execution 
+src/test/resources/junit-platform.properties
+junit.jupiter.execution.parallel.enabled=true
+
+
 Task description
 Launch URL: https://www.saucedemo.com/
 
