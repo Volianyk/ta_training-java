@@ -70,12 +70,7 @@ public class SaucedemoLoginPage extends AbstractPage {
     private SaucedemoLoginPage clearInput(WebElement target) {
         log.info("{} input will be clear", target.getText());
         wait.until(ExpectedConditions.visibilityOf(target));
-        new Actions(driver)
-                .doubleClick(target)
-                .doubleClick(target)
-                .sendKeys(Keys.BACK_SPACE)
-                .build()
-                .perform();
+        target.sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE));
         log.info("clear done");
         return this;
     }
