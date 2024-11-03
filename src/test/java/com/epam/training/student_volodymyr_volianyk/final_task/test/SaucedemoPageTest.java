@@ -4,7 +4,6 @@ import com.epam.training.student_volodymyr_volianyk.final_task.driver.DriverFact
 import com.epam.training.student_volodymyr_volianyk.final_task.model.TestCaseData;
 import com.epam.training.student_volodymyr_volianyk.final_task.page.SaucedemoLoginPage;
 import com.epam.training.student_volodymyr_volianyk.final_task.page.SaucedemoMainPage;
-import com.epam.training.student_volodymyr_volianyk.final_task.service.TestCaseDataCreator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.parallel.Execution;
@@ -12,9 +11,6 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebDriver;
-
-import java.util.List;
-import java.util.stream.Stream;
 
 import static com.epam.training.student_volodymyr_volianyk.final_task.service.TestCaseDataCreator.withCredentialsFromProperty;
 
@@ -49,7 +45,9 @@ public class SaucedemoPageTest extends CommonConditions {
                                 .openPage()
                                 .enterName(testCaseData.getUsername())
                                 .enterPassword(testCaseData.getPassword())
-                                .clearPassword().clickLogin()
+
+                                .clearPassword()
+                                .clickLogin()
                                 .getErrorMessage())
 
                 .isEqualTo("Password is required");
@@ -76,9 +74,4 @@ public class SaucedemoPageTest extends CommonConditions {
     private static TestCaseData[] loginTestData() {
         return new TestCaseData[]{withCredentialsFromProperty()};
     }
-//    private List<TestCaseData> loginTestData() {
-//        return List.of(new TestCaseData
-//                ("standard_user", "secret_sauce"));
-//    }
-
 }
