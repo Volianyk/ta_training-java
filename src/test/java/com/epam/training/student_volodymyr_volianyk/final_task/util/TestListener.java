@@ -1,6 +1,6 @@
 package com.epam.training.student_volodymyr_volianyk.final_task.util;
 
-import com.epam.training.student_volodymyr_volianyk.final_task.driver.DriverSingleton;
+import com.epam.training.student_volodymyr_volianyk.final_task.driver.DriverFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -17,20 +17,22 @@ import java.time.format.DateTimeFormatter;
 public class TestListener implements TestWatcher {
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
-        log.error("Test failed: " + context.getDisplayName());
-        saveScreenshot();
+        // saveScreenshot(); //todo save screenshot after method execution-it is incorrect
     }
+
+
     private void saveScreenshot() {
-        File screenCapture = ((TakesScreenshot) DriverSingleton
-                .getDriver())
+        File screenCapture = ((TakesScreenshot) DriverFactory
+                .createDriver(System.getProperty("browser", "edge")))
                 .getScreenshotAs(OutputType.FILE);
+
         try {
             FileUtils.copyFile(screenCapture, new File(
                     ".//target/screenshots/"
                             + getCurrentTimeAsString() +
                             ".png"));
         } catch (IOException e) {
-            log.error("Failed to save screenshot: " + e.getLocalizedMessage());
+            log.error("Failed to save screenshot:{}", e.getLocalizedMessage());
         }
     }
 
@@ -39,9 +41,4 @@ public class TestListener implements TestWatcher {
         return ZonedDateTime.now().format(formatter);
     }
 
-
-    @Override
-    public void testSuccessful(ExtensionContext context) {
-
-    }
 }

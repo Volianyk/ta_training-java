@@ -11,17 +11,16 @@ import org.openqa.selenium.support.PageFactory;
 public class SaucedemoMainPage extends AbstractPage {
     private final Logger log = LogManager.getRootLogger();
 
-    @FindBy(xpath = "//div[contains(text(),'Swag Labs')]")
+    @FindBy(xpath = "//div[contains(text(),'Swag Labs') and @class='app_logo']")
     private WebElement pageTitle;
 
-    protected SaucedemoMainPage(WebDriver driver) {
+    public SaucedemoMainPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }
 
-    @Override
     protected AbstractPage openPage() {
-        return null;
+        return new SaucedemoMainPage(driver);
     }
 
     public String getPageTitle() {

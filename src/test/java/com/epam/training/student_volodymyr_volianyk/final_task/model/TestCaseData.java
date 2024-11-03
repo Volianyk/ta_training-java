@@ -7,26 +7,26 @@ import java.util.Objects;
 
 @AllArgsConstructor
 @Data
-public class User {
+public class TestCaseData {
     private String username;
     private String password;
-    private String message;
 
 
     @Override
     public String toString() {
-        return "User name: "+ username + '\'' +
-                ", User password: " + password  +
-                '.';
+        return "TestCaseData{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return Objects.equals(getUsername(), user.getUsername()) &&
-                Objects.equals(getPassword(), user.getPassword());
+        if (!(o instanceof TestCaseData)) return false;
+        TestCaseData testCaseData = (TestCaseData) o;
+        return Objects.equals(getUsername(), testCaseData.getUsername()) &&
+                Objects.equals(getPassword(), testCaseData.getPassword());
     }
 
     @Override

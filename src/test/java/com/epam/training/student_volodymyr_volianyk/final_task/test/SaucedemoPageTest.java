@@ -1,60 +1,84 @@
 package com.epam.training.student_volodymyr_volianyk.final_task.test;
 
-import com.epam.training.student_volodymyr_volianyk.final_task.model.User;
+import com.epam.training.student_volodymyr_volianyk.final_task.driver.DriverFactory;
+import com.epam.training.student_volodymyr_volianyk.final_task.model.TestCaseData;
 import com.epam.training.student_volodymyr_volianyk.final_task.page.SaucedemoLoginPage;
+import com.epam.training.student_volodymyr_volianyk.final_task.page.SaucedemoMainPage;
+import com.epam.training.student_volodymyr_volianyk.final_task.service.TestCaseDataCreator;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.openqa.selenium.WebDriver;
+
+import java.util.List;
+import java.util.stream.Stream;
+
+import static com.epam.training.student_volodymyr_volianyk.final_task.service.TestCaseDataCreator.withCredentialsFromProperty;
 
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@Execution(ExecutionMode.CONCURRENT)
 public class SaucedemoPageTest extends CommonConditions {
-    @Test
-    public void emptyInputTest() {
-        SaucedemoLoginPage loginPage = new SaucedemoLoginPage(driver);
-        User testUser = new User
-                ("standard_use", "secret_sauc", "Username is required");
-        loginPage.openPage();
-        loginPage.enterCredentials(loginPage.getInputUserName(), testUser.getUsername());
-        loginPage.enterCredentials(loginPage.getInputUserPassword(), testUser.getPassword());
-        loginPage.clearInputWithAction(loginPage.getInputUserName(), testUser.getUsername());
-        loginPage.clearInputWithAction(loginPage.getInputUserPassword(), testUser.getPassword());
-        loginPage.clickButton(loginPage.getButtonLogin());
 
-        String actualErrorMessage = loginPage.getErrorMessage();
-        String expectedErrorMessage = testUser.getMessage();
+    @ParameterizedTest
+    @MethodSource("loginTestData")
+    public void loginEmptyFieldTest(TestCaseData testCaseData) {
+        WebDriver driver = DriverFactory.createDriver(browser);
+        Assertions.assertThat(
+                        new SaucedemoLoginPage(driver)
+                                .openPage()
+                                .enterName(testCaseData.getUsername())
+                                .enterPassword(testCaseData.getPassword())
+                                .clearName().clearPassword().clickLogin()
+                                .getErrorMessage())
 
-        Assertions.assertThat(actualErrorMessage).isEqualTo(expectedErrorMessage);
+                .isEqualTo("Username is required");
+        driver.quit();
     }
 
-    @Test
-    public void emptyPasswordTest() throws InterruptedException {
-        User testUser = new User("standard_use", "secret_sauc", "Password is required");
-        SaucedemoLoginPage loginPage = new SaucedemoLoginPage(driver);
-        loginPage.openPage();
-        loginPage.enterCredentials(loginPage.getInputUserName(), testUser.getUsername());
-        loginPage.enterCredentials(loginPage.getInputUserPassword(), testUser.getPassword());
-        loginPage.clearInputWithAction(loginPage.getInputUserPassword(), testUser.getPassword());
 
-        //Thread.sleep(2000);
-        loginPage.clickButton(loginPage.getButtonLogin());
+    @ParameterizedTest
+    @MethodSource("loginTestData")
+    public void loginEmptyPasswordTest(TestCaseData testCaseData) {
+        WebDriver driver = DriverFactory.createDriver(browser);
+        Assertions.assertThat(
+                        new SaucedemoLoginPage(driver)
+                                .openPage()
+                                .enterName(testCaseData.getUsername())
+                                .enterPassword(testCaseData.getPassword())
+                                .clearPassword().clickLogin()
+                                .getErrorMessage())
 
-        String actualErrorMessage = loginPage.getErrorMessage();
-        String expectedErrorMessage = testUser.getMessage();
-
-        Assertions.assertThat(actualErrorMessage).isEqualTo(expectedErrorMessage);
+                .isEqualTo("Password is required");
+        driver.quit();
     }
 
-    @Test
-    public void correctInputTest() {
-        User testUser = new User("standard_user", "secret_sauce", "Swag Labs");
-        SaucedemoLoginPage loginPage = new SaucedemoLoginPage(driver);
-        loginPage.openPage();
-        String actualErrorMessage = loginPage
-                .login(testUser)
-                .getPageTitle();
+    @ParameterizedTest
+    @MethodSource("loginTestData")
+    public void successfulLoginTest(TestCaseData testCaseData) {
+        WebDriver driver = DriverFactory.createDriver(browser);
+        String title = null; //todo fix the method
+        SaucedemoLoginPage loginPage = new SaucedemoLoginPage(driver)
+                .openPage()
+                .enterName(testCaseData.getUsername())
+                .enterPassword(testCaseData.getPassword())
+                .clickLogin();
 
-        String expectedErrorMessage = testUser.getMessage();
+        title = new SaucedemoMainPage(driver).getPageTitle();
 
-        Assertions.assertThat(actualErrorMessage).isEqualTo(expectedErrorMessage);
+        Assertions.assertThat(title).isEqualTo("Swag Labs");
+        driver.quit();
     }
+
+    private static TestCaseData[] loginTestData() {
+        return new TestCaseData[]{withCredentialsFromProperty()};
+    }
+//    private List<TestCaseData> loginTestData() {
+//        return List.of(new TestCaseData
+//                ("standard_user", "secret_sauce"));
+//    }
 
 }
