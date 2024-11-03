@@ -58,14 +58,13 @@ public class SaucedemoPageTest extends CommonConditions {
     @MethodSource("loginTestData")
     public void successfulLoginTest(TestCaseData testCaseData) {
         WebDriver driver = DriverFactory.createDriver(browser);
-        String title = null; //todo fix the method
-        SaucedemoLoginPage loginPage = new SaucedemoLoginPage(driver)
+        new SaucedemoLoginPage(driver)
                 .openPage()
                 .enterName(testCaseData.getUsername())
                 .enterPassword(testCaseData.getPassword())
                 .clickLogin();
 
-        title = new SaucedemoMainPage(driver).getPageTitle();
+        String title = new SaucedemoMainPage(driver).getPageTitle();
 
         Assertions.assertThat(title).isEqualTo("Swag Labs");
         driver.quit();

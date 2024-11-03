@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Конфігурація рівня логування за замовчуванням -->
+    <root level="info">
+        <!-- Консольний апендер (виводить логи в консоль) -->
+        <appender-ref ref="consoleAppender" />
+    </root>
+
+    <!-- Консольний апендер для виведення логів в консоль -->
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Файловий апендер для збереження логів у файл -->
+    <appender name="fileAppender" class="ch.qos.logback.core.FileAppender">
+        <file>target/logs/ta_training-java.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Налаштування логування для окремих пакетів або класів -->
+    <logger name="com.epam.training" level="info" additivity="false">
+        <appender-ref ref="consoleAppender" />
+        <appender-ref ref="fileAppender" />
+    </logger>
+
+</configuration>
