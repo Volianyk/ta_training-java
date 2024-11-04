@@ -5,6 +5,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
@@ -29,6 +30,7 @@ public class PastebinPage extends AbstractPage {
 
     public PastebinPage(WebDriver driver) {
         super(driver);
+        PageFactory.initElements(driver, this);
     }
 
     public PastebinPage openPage() {
@@ -46,7 +48,6 @@ public class PastebinPage extends AbstractPage {
     }
 
     public void selectPasteExpiration(String expiration) {
-
         ((JavascriptExecutor) driver).executeScript(
                 "arguments[0].value = arguments[1];", expirationDropdown, expiration);
         log.info("Set expiration time: " + expiration);

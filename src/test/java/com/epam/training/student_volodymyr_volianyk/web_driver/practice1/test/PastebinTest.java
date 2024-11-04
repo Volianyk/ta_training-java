@@ -6,8 +6,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.time.Duration;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PastebinTest {
     private WebDriver driver;
@@ -19,15 +22,19 @@ public class PastebinTest {
     }
 
     @Test
-    public void enteredWalueTest() throws InterruptedException {
+    public void enteredWalueTest() {
         PastebinPage pastebinPage = new PastebinPage(driver);
         pastebinPage.openPage();
+
         pastebinPage.enterPasteCode("Hello from WebDriver");
-        pastebinPage.selectPasteExpiration("10 Minutes"); //have issue here
+        pastebinPage.selectPasteExpiration("10 Minutes");
         pastebinPage.enterPasteName("helloweb");
         pastebinPage.createNewPaste();
 
-        assertNotNull(pastebinPage);
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(
+                webDriver -> webDriver.getTitle().contains("helloweb"));
+
+        assertTrue(driver.getTitle().contains("helloweb"), "Page title should contain paste name.");
     }
 
     @AfterEach
