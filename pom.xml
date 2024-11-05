@@ -21,6 +21,7 @@
         <webdrivermanager.version>5.9.2</webdrivermanager.version>
         <commons-io.version>2.16.1</commons-io.version>
         <log4j-core.version>2.24.1</log4j-core.version>
+        <cucumber.version>7.0.0</cucumber.version>
     </properties>
 
     <dependencies>
@@ -46,9 +47,8 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
             <version>5.7.1</version>
-            <scope>test</scope>
+            <scope>${junit-jupiter-api.version}</scope>
         </dependency>
-
 
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -93,6 +93,17 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.version}</version>
         </dependency>
 
     </dependencies>
